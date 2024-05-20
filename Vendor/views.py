@@ -1,11 +1,13 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Vendor,PurchaseOrder,HistoricalPerformance
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
-import json
 from django.http import JsonResponse
 
+def list_vendor(request):
+    vendors = Vendor.objects.all().values()
+    vendor_list = list(vendors)  
+    return JsonResponse(vendor_list, safe=False)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -28,4 +30,5 @@ def create_vendor(request):
     new_vendor.save()
     
     return JsonResponse({'message': 'Data received successfully'}, status=200)
+    
     
