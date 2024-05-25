@@ -1,10 +1,8 @@
-
 from django.urls import path
-from .views import create_vendor,list_vendor,specific_vendor
 from . import views
 
 urlpatterns = [
-    path('vendor/', create_vendor),
-    path('vendorslist/', list_vendor),
-    path('vendor/<int:vendor_id>/', specific_vendor),
+    path('api/vendors/', views.VendorListCreate.as_view(), name='vendor-list-create'),
+    path('api/vendors/<int:pk>/', views.VendorRetrieveUpdateDestroy.as_view(), name='vendor-retrieve-update-destroy'),
 ]
+
